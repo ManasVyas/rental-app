@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const app_1 = require("./libs/app");
+const cors_1 = require("./middlewares/cors");
+const errorhandler_1 = require("./middlewares/errorhandler");
+const system_1 = require("./middlewares/system");
+const user_1 = require("./routes/user");
+const PORT = process.env.PORT || "8080";
+app_1.default.server.use(cors_1.AllowCrossDomain);
+app_1.default.server.use(system_1.AddUserId);
+app_1.default.server.use("/user", user_1.UserRouter);
+app_1.default.server.use(cors_1.AllowCrossDomain);
+app_1.default.server.use(errorhandler_1.ErrorHandler);
+app_1.default.start(PORT);
